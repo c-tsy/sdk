@@ -1,0 +1,19 @@
+{
+  "name": "@ctsy/sdk",
+  "version": "0.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/c-tsy/sdk",
+  "author": "castleiMac <castle@tansuyun.cn>",
+  "types": "dist/index.d.ts",
+  "files": [
+    "README.md",
+    "yarn.lock",
+    "dist/**/*.js",
+    "dist/**/*.d.ts"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@ctsy/common": "^1.0.14",
+    "axios": "^0.27.2"
+  }
+}
