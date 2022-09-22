@@ -38,23 +38,23 @@ export function set_host(host: string) {
 
 export class Request {
     Host = ""
-
-    _post(path: string, data: any) {
+    protected _post(path: string, data: any) {
         return this._req(path, "post", data)
     }
-    _get(path: string) {
+    protected _get(path: string) {
         return this._req(path, "get")
     }
-    _put(path: string, data: any) {
+    protected _put(path: string, data: any) {
         return this._req(path, "put", data)
     }
-    _patch(path: string, data: any) {
+    protected _patch(path: string, data: any) {
         return this._req(path, "patch", data)
     }
 
-    _req(path: string, method: string, data: any = ""): Promise<any> {
+    protected _req(path: string, method: string, data?: any): Promise<any> {
+        //查询缓存并上报缓存结论，服务端判断是否需要返回内容
         return req.request({
-            url: [this.Host || Host, path].join('/'), method, data
+            url: [this.Host.length > 0 ? this.Host : Host, path].join('/'), method, data
         })
     }
 }
@@ -62,18 +62,22 @@ export class Request {
 
 export class BaseCURD<T> extends Request {
 
-    Name = "Dics"
+    Name = ""
     /**
      * 
      * @param DID 
      * @returns 
      */
-    get(DID: number): Promise<T> {
-        return this._get(this.Name + "/" + DID)
+    get(ID: number): Promise<T> {
+        return this._get(this.Name + "/" + ID)
     }
 
     async save(d: T) {
-        (await this._put(this.Name + "/save", { L: d })).N > 0
+        (await this._patch(this.Name + "/save", d)).N > 0
+    }
+
+    async saves(IDs: number[], d: { [index: string]: string | number | object | boolean }) {
+        (await this._patch(this.Name + "/saves", { L: IDs, Data: d })).N > 0
     }
 
     async adds(d: T[]) {
