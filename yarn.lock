@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@ctsy/common@^1.0.14":
-  version "1.0.14"
-  resolved "https://registry.yarnpkg.com/@ctsy/common/-/common-1.0.14.tgz#c1d23cf0999112abf011e10bee070c4d6b2af86f"
-  integrity sha512-vpohvJTWVui9uVNM5R3UKa8W+bmGbHyl7VSvQex9kbdW3JQ2T44ojBYhVTOCHPOj9FS/a1/LUemwhCj+8NsQSg==
+"@ctsy/common@^1.0.15":
+  version "1.0.15"
+  resolved "https://registry.yarnpkg.com/@ctsy/common/-/common-1.0.15.tgz#41371e2aef9ae3682bc02cd3cd778240145fd779"
+  integrity sha512-fB55FaS0BQcpc30ALhXSKMLCASEw4DQP9BIzoTh6XOL3rl3Jrg11Pq32Fzm/dq7Y+iJxfG93S4oppv9keUmdLQ==
   dependencies:
     dayjs "*"
     lodash "*"
@@ -15,7 +15,7 @@ asynckit@^0.4.0:
   resolved "https://registry.yarnpkg.com/asynckit/-/asynckit-0.4.0.tgz#c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79"
   integrity sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==
 
-axios@^0.27.2:
+axios@*:
   version "0.27.2"
   resolved "https://registry.yarnpkg.com/axios/-/axios-0.27.2.tgz#207658cc8621606e586c85db4b41a750e756d972"
   integrity sha512-t+yRIyySRTp/wua5xEr+z1q60QmLq8ABsS5O9Me1AsE5dfKqgnCFzwiCZZ/cGNd1lq4/7akDWMxdhVlucjmnOQ==

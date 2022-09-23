@@ -1,10 +1,33 @@
 import axios from 'axios'
+import { crc8, store } from '@ctsy/common'
 
 const req = axios.create({ withCredentials: true })
 
-req.interceptors.request.use((c) => c)
+req.interceptors.request.use((c: any) => {
+    // debugger
+    let key = c.url + crc8(JSON.stringify(c.data))
+    c.key = key
+    //读取并写入请求md5
+    var cached = store.get(key)
+    if (cached.md5)
+        //@ts-ignore
+        c.headers['md5'] = cached.md5
+    c.cdata = cached.d
+    return c;
+})
 
-req.interceptors.response.use((r) => {
+
+req.interceptors.response.use((r: any) => {
+
+    // debugger
+    if (r.headers.md5) {
+        //存储缓存信息，
+        if (r.status == 204) {
+            return r.config.cdata
+        } else {
+            store.set(r.config.key, { md5: r.headers.md5, d: r.data.d }, 0)
+        }
+    }
 
     if (r.data.c == 0) {
         return r.data.d
