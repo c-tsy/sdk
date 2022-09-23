@@ -1,6 +1,6 @@
 {
   "name": "@ctsy/sdk",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "dist/index.js",
   "repository": "https://github.com/c-tsy/sdk",
   "author": "castleiMac <castle@tansuyun.cn>",
@@ -13,7 +13,7 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@ctsy/common": "*",
+    "@ctsy/common": "^1.0.15",
     "axios": "*"
   }
 }
