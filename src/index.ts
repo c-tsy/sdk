@@ -5,7 +5,7 @@ const req = axios.create({ withCredentials: true })
 
 req.interceptors.request.use((c: any) => {
     // debugger
-    let key = c.method + c.url + crc8(JSON.stringify(c.data))
+    let key = c.method + c.url + crc8(JSON.stringify(c.data || {}))
     c.key = key
     //读取并写入请求md5
     var cached = store.get(key)
