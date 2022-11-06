@@ -1,23 +1,37 @@
 import axios from 'axios'
 import { crc8, store } from '@ctsy/common'
-
+import local from 'localforage'
+var stores = local.createInstance({
+    name: "ctsysdk"
+});
+var token = ""
 const req = axios.create({ withCredentials: true })
 
-req.interceptors.request.use((c: any) => {
+req.interceptors.request.use(async (c: any) => {
     // debugger
     let key = c.method + c.url + crc8(JSON.stringify(c.data || {}))
     c.key = key
     //读取并写入请求md5
-    var cached = store.get(key)
-    if (cached.md5)
+    var cached = (await stores.getItem(key)) || { d: "", md5: "" }
+    if (cached) {
         //@ts-ignore
-        c.headers['md5'] = cached.md5
-    c.cdata = cached.d
+        if (cached.md5)
+            //@ts-ignore
+            c.headers['md5'] = cached.md5
+        //@ts-ignore
+        c.cdata = cached.d || ""
+    }
+    c.headers.token = token
     return c;
 })
 
 
 req.interceptors.response.use((r: any) => {
+
+    if (r.headers.token) {
+        token = r.headers.token
+        store.set("token", token)
+    }
 
     // debugger
     if (r.headers.md5) {
@@ -25,7 +39,7 @@ req.interceptors.response.use((r: any) => {
         if (r.status == 204) {
             return r.config.cdata
         } else {
-            store.set(r.config.key, { md5: r.headers.md5, d: r.data.d }, 0)
+            stores.setItem(r.config.key, { md5: r.headers.md5, d: r.data.d })
         }
     }
 
@@ -58,20 +72,30 @@ var Host = ""
 export function set_host(host: string) {
     Host = host
 }
-
+export function set_token(token: string) {
+    token = token
+}
 export class Request {
     Host = ""
+
     protected _post(path: string, data: any) {
         return this._req(path, "post", data)
     }
+
     protected _get(path: string) {
         return this._req(path, "get")
     }
+
     protected _put(path: string, data: any) {
         return this._req(path, "put", data)
     }
+
     protected _patch(path: string, data: any) {
         return this._req(path, "patch", data)
+    }
+
+    protected _delete(path: string) {
+        return this._req(path, "delete")
     }
 
     protected _req(path: string, method: string, data?: any): Promise<any> {
@@ -82,6 +106,7 @@ export class Request {
     }
 }
 
+set_token(store.get("token", ""))
 
 export class BaseCURD<T> extends Request {
 

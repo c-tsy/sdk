@@ -29,8 +29,9 @@ export class DicsEntity {
 
 export class Dics extends BaseCURD<DicsEntity> {
 
-    Name = "Dics"
-
+    Name: string = "Dics"
+    Names: string[] = []
+    // Name :{[key:string]:any}={}
 }
 
 const DicsApi = new Dics
