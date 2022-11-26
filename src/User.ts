@@ -1,4 +1,5 @@
 import { Request, Base } from "./"
+import md5 from 'md5'
 /**
 * gitee.com.tansuyun.tgo.tuser.api.LoginReq
 */
@@ -1498,6 +1499,7 @@ export class Auth extends Request {
     * @return EntityAuthRes
     */
     async login(d: EntityLoginReq): Promise<EntityAuthRes> {
+        d.PWD = md5(d.PWD)
         return this._post(this.Class + `/login`, d)
     }
     /**
@@ -1541,6 +1543,7 @@ export class Auth extends Request {
     * @return EntityUIDRes
     */
     async regist(d: EntityRegistReq): Promise<EntityUIDRes> {
+        d.PWD = md5(d.PWD)
         return this._put(this.Class + `/regist`, d)
     }
     /**

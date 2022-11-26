@@ -1,6 +1,11 @@
 import axios from 'axios'
 import { crc8, store } from '@ctsy/common'
 import local from 'localforage'
+import hook, { HookWhen } from '@ctsy/hook'
+export const SDKHooks = {
+    BeforeRequest: 'BeforeRequest',
+    AfterRequest: "AfterRequest"
+}
 var stores = local.createInstance({
     name: "ctsysdk"
 });
@@ -8,7 +13,6 @@ var token = ""
 const req = axios.create({ withCredentials: true })
 
 req.interceptors.request.use(async (c: any) => {
-    // debugger
     let key = c.method + c.url + crc8(JSON.stringify(c.data || {}))
     c.key = key
     //读取并写入请求md5
@@ -22,17 +26,17 @@ req.interceptors.request.use(async (c: any) => {
         c.cdata = cached.d || ""
     }
     c.headers.token = token
+    await hook.emit(SDKHooks.BeforeRequest, HookWhen.Before, c, c)
     return c;
 })
 
 
-req.interceptors.response.use((r: any) => {
-
+req.interceptors.response.use(async (r: any) => {
     if (r.headers.token) {
         token = r.headers.token
         store.set("token", token)
     }
-
+    await hook.emit(SDKHooks.BeforeRequest, HookWhen.Before, r, r.data)
     // debugger
     if (r.headers.md5) {
         //存储缓存信息，
