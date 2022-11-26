@@ -51,6 +51,15 @@ req.interceptors.response.use((r: any) => {
 
 })
 
+export class Base {
+    $set(d: { [key: string]: any }) {
+        for (let k in d) {
+            //@ts-ignore
+            this[k] = d[k]
+        }
+        return this;
+    }
+}
 
 export class SearchWhere {
     P = 1;
