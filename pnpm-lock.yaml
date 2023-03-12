@@ -3,15 +3,19 @@ lockfileVersion: 5.4
 specifiers:
   '@ctsy/common': ^1.0.15
   '@ctsy/hook': ^0.0.7
+  '@msgpack/msgpack': 3.0.0-beta1
   '@types/md5': ^2.3.2
   axios: 0.27.2
+  buffer: ^6.0.3
   localforage: ^1.10.0
   md5: ^2.3.0
 
 dependencies:
   '@ctsy/common': 1.0.15
   '@ctsy/hook': 0.0.7
+  '@msgpack/msgpack': 3.0.0-beta1
   axios: 0.27.2
+  buffer: 6.0.3
   localforage: 1.10.0
   md5: 2.3.0
 
@@ -31,6 +35,11 @@ packages:
     resolution: {integrity: sha512-1q1Qthgtcy6hoaol63SEibJQ4wp19DmZ50hw44/YYVw0Y6HV20BCPnMJLR/eZZ32MvBpaV3IrIYODVRR6wy5kw==}
     dev: false
 
+  /@msgpack/msgpack/3.0.0-beta1:
+    resolution: {integrity: sha512-lxE24h4f129kJT47UWJxq5xzb1H68ErktWEbtg9/4PJbb/GCUg5+O3l3sC1H8VN4CzlWy3RGyYxUUgFJ8xf9Uw==}
+    engines: {node: '>= 14'}
+    dev: false
+
   /@types/md5/2.3.2:
     resolution: {integrity: sha512-v+JFDu96+UYJ3/UWzB0mEglIS//MZXgRaJ4ubUPwOM0gvLc/kcQ3TWNYwENEK7/EcXGQVrW8h/XqednSjBd/Og==}
     dev: true
@@ -46,6 +55,17 @@ packages:
       form-data: 4.0.0
     transitivePeerDependencies:
       - debug
+    dev: false
+
+  /base64-js/1.5.1:
+    resolution: {integrity: sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==}
+    dev: false
+
+  /buffer/6.0.3:
+    resolution: {integrity: sha512-FTiCpNxtwiZZHEZbcbTIcZjERVICn9yq/pDFkTl95/AxzD1naBctN7YO68riM/gLSDY7sdrMby8hofADYuuqOA==}
+    dependencies:
+      base64-js: 1.5.1
+      ieee754: 1.2.1
     dev: false
 
   /charenc/0.0.2:
@@ -89,6 +109,10 @@ packages:
       asynckit: 0.4.0
       combined-stream: 1.0.8
       mime-types: 2.1.35
+    dev: false
+
+  /ieee754/1.2.1:
+    resolution: {integrity: sha512-dcyqhDvX1C46lXZcVqCpK+FtMRQVdIMN6/Df5js2zouUsqG7I6sFxitIC+7KYK29KdXOLHdu9zL4sFnoVQnqaA==}
     dev: false
 
   /immediate/3.0.6:
