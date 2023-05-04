@@ -75,8 +75,12 @@ req.interceptors.response.use(async (r) => {
             //@ts-ignore
             return r.config.cdata
         } else {
-            //@ts-ignore
-            stores.setItem(r.config.key, { md5: r.headers.md5, d: r.data.d })
+            try {
+                //@ts-ignore
+                stores.setItem(r.config.key, { md5: r.headers.md5, d: r.data.d })
+            } catch (error) {
+
+            }
         }
     }
 
