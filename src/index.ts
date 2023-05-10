@@ -3,6 +3,7 @@ import { crc8, store } from '@ctsy/common'
 import local from 'localforage'
 import hook, { HookWhen } from '@ctsy/hook'
 import { encode, decode } from "@msgpack/msgpack";
+import { cloneDeep } from 'lodash'
 // import "./buffer"
 
 export const SDKHooks = {
@@ -77,7 +78,7 @@ req.interceptors.response.use(async (r) => {
         } else {
             try {
                 //@ts-ignore
-                stores.setItem(r.config.key, { md5: r.headers.md5, d: r.data.d })
+                stores.setItem(r.config.key, { md5: r.headers.md5, d: cloneDeep(r.data.d) })
             } catch (error) {
 
             }
@@ -122,8 +123,8 @@ var Host = ""
 export function set_host(host: string) {
     Host = host
 }
-export function set_token(token: string) {
-    token = token
+export function set_token(ctoken: string) {
+    token = ctoken
 }
 
 export function set_debug(debug: boolean = true) {
@@ -132,27 +133,27 @@ export function set_debug(debug: boolean = true) {
 export class Request {
     Host = ""
 
-    protected _post(path: string, data: any) {
+    _post(path: string, data: any) {
         return this._req(path, "post", data)
     }
 
-    protected _get(path: string) {
+    _get(path: string) {
         return this._req(path, "get")
     }
 
-    protected _put(path: string, data: any) {
+    _put(path: string, data: any) {
         return this._req(path, "put", data)
     }
 
-    protected _patch(path: string, data: any) {
+    _patch(path: string, data: any) {
         return this._req(path, "patch", data)
     }
 
-    protected _delete(path: string) {
+    _delete(path: string) {
         return this._req(path, "delete")
     }
 
-    protected _req(path: string, method: string, data?: any): Promise<any> {
+    _req(path: string, method: string, data?: any): Promise<any> {
         //查询缓存并上报缓存结论，服务端判断是否需要返回内容
         return req.request({
             url: [this.Host.length > 0 ? this.Host : Host, path].join('/'), method, data
