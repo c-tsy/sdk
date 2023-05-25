@@ -85,10 +85,10 @@ req.interceptors.response.use(async (r) => {
         }
     }
 
-    if (r.data.c == 0) {
+    if (r.data.c == 0 && !r.data.m) {
         return r.data.d
     } else {
-        throw new Error(r.data.m)
+        throw { code: r.data.c, message: r.data.m, data: r.data.d }
     }
 
 })
