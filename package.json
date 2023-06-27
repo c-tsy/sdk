@@ -1,6 +1,6 @@
 {
   "name": "@ctsy/sdk",
-  "version": "0.0.19",
+  "version": "0.0.20",
   "main": "dist/index.js",
   "repository": "https://github.com/c-tsy/sdk",
   "author": "castleiMac <castle@tansuyun.cn>",
@@ -13,20 +13,24 @@
   ],
   "license": "MIT",
   "scripts": {
-    "prepublishOnly": "tsc"
+    "prepublishOnly": "tsc && webpack ./dist/index.js",
+    "build": "webpack ./dist/index.js"
   },
   "dependencies": {
     "@ctsy/common": "^1.0.15",
     "@ctsy/hook": "^0.0.7",
     "@msgpack/msgpack": "3.0.0-beta1",
+    "@vitejs/plugin-legacy": "^4.0.5",
     "axios": "0.27.2",
     "buffer": "^6.0.3",
     "localforage": "^1.10.0",
     "lodash": "^4.17.21",
-    "md5": "^2.3.0"
+    "md5": "^2.3.0",
+    "webpack": "^5.88.0"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.194",
-    "@types/md5": "^2.3.2"
+    "@types/md5": "^2.3.2",
+    "webpack-cli": "^5.1.4"
   }
 }
