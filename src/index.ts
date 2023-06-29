@@ -13,9 +13,10 @@ export const SDKHooks = {
 var stores = local.createInstance({
     name: "ctsysdk"
 });
+const tokenStore = "y5token"
 var token = ""
 var Debug = true
-const req = axios.create({ withCredentials: true })
+export const req = axios.create({ withCredentials: true })
 
 
 //@ts-ignore
@@ -50,7 +51,7 @@ req.interceptors.request.use(async (c: AxiosRequestConfig & { key: string }) => 
 req.interceptors.response.use(async (r) => {
     if (r.headers.token) {
         token = r.headers.token
-        store.set("token", token)
+        store.set(tokenStore, token)
     }
     let content = r.headers['content-type']
     if (r.status != 204 && r.data.byteLength > 0) {
@@ -161,7 +162,7 @@ export class Request {
     }
 }
 
-set_token(store.get("token", ""))
+set_token(store.get(tokenStore, ""))
 
 export class BaseCURD<T> extends Request {
 
@@ -196,3 +197,13 @@ export class BaseCURD<T> extends Request {
     }
 
 }
+
+const exp = {
+    set_host,
+    set_debug,
+    Base,
+    BaseCURD,
+    Request, SearchResult, SearchWhere, req, set_token
+}
+//@ts-ignore
+window.CSDK = exp
