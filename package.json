@@ -1,6 +1,6 @@
 {
   "name": "@ctsy/sdk",
-  "version": "0.0.20",
+  "version": "0.0.21",
   "main": "dist/index.js",
   "repository": "https://github.com/c-tsy/sdk",
   "author": "castleiMac <castle@tansuyun.cn>",
